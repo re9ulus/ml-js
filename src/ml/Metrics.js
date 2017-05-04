@@ -1,9 +1,9 @@
 function meanSquaredError(real, pred) {
-  if (real.length != pred.length) {
+  if (real.length !== pred.length) {
     // ToDo: Add sizes to error
     throw new Error("Real and predicted values have different sizes");
   }
-  if (real.length == 0) {
+  if (real.length === 0) {
     return 0;
   }
   let s = 0;

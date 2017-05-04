@@ -1,9 +1,21 @@
+import { meanSquaredError } from './Metrics';
+
 class SimpleGradientDescentOptimizer {
-  constructor(weight_func, bias_func, labels, data) {
-    this.weight_func = weight_func;
+  constructor(bias_func, weight_func) {
     this.bias_func = bias_func;
-    // this.labels = labels;
-    // this.data = data;
+    this.weight_func = weight_func;
+  }
+
+  predict_single(bias, w1, item) {
+    return bias + w1 * item;
+  }
+  
+  predict(bias, w1, data) {
+    let pred = []; // ToDo: Use map
+    for (let item of data) {
+      pred.push(this.predict_single(bias, w1, item));
+    }
+    return pred;
   }
 
   optimize(data, target, eta, n_iter) {
@@ -18,7 +30,8 @@ class SimpleGradientDescentOptimizer {
         bias = new_bias;
         weights = new_weights;
       }
-      console.log(bias, weights);
+
+      console.log(iter, 'error: ', meanSquaredError(target, this.predict(bias, weights, data)));
     }
     return [bias, weights];
   }

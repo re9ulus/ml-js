@@ -4,6 +4,7 @@ import logo from './logo.svg';
 import { SimpleLinearRegression } from './ml/LinearRegression';
 import { test_data } from  './ml/TestData';
 import { meanSquaredError } from './ml/Metrics';
+import { Scaler } from './ml/Scaler';
 
 class App extends Component {
 
@@ -16,6 +17,10 @@ class App extends Component {
       label.push(item[0]);
       data.push(item[1]);
     }
+
+    let scaler = new Scaler();
+    label = scaler.scale(label);
+    data = scaler.scale(data);
 
     console.log('label: ', label);
     console.log('data: ', data);

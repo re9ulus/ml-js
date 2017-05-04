@@ -33,10 +33,10 @@ class SimpleLinearModel {
 }
 
 class SimpleLinearRegression extends SimpleLinearModel {
-  fit(data, target, eta=0.00001, n_iter=1000) {
+  fit(data, target, eta=0.01, n_iter=1000) {
     let optimizer = new SimpleGradientDescentOptimizer(
-      (bias, w1, item, target) => target - (bias + w1 * item),
-      (bias, w1, item, target) => (target - (bias + w1 * item)) * item
+      (bias, w, item, target) => target - (bias + w * item),
+      (bias, w, item, target) => (target - (bias + w * item)) * item
     );
     [ this.bias, this.w1 ] = optimizer.optimize(data, target, eta, n_iter);
   }
