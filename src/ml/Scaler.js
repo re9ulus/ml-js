@@ -1,10 +1,12 @@
+var M = import './MathUtils';
+
 class Scaler {
 
   standardize(data) {
     if (data.length === 0) {
       return data;
     }
-    const mean = data.reduce((a, b) => a + b, 0) / data.length;
+    const mean = M.mean(data);
 
     let std = 0;
     for (let item of data) {
@@ -38,7 +40,6 @@ class Scaler {
     }
 
     const denominator = maxVal - minVal;
-
     if (denominator === 0) {
       throw new Exception('Can not normalize data, maxVal is equal to minVal, division by zero.');
     }
