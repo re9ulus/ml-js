@@ -19,13 +19,14 @@ class App extends Component {
     }
 
     let scaler = new Scaler();
-    label = scaler.scale(label);
-    data = scaler.scale(data);
+    label = scaler.standardize(label);
+    data = scaler.standardize(data);
 
     console.log('label: ', label);
     console.log('data: ', data);
 
-    lr.fit(data, label);
+    const eta = 0.001;
+    lr.fit(data, label, eta);
 
     let pred = lr.predict(data);
     console.log(pred);

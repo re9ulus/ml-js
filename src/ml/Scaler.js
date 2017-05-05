@@ -41,7 +41,7 @@ class Scaler {
 
     const denominator = maxVal - minVal;
     if (denominator === 0) {
-      throw new Exception('Can not normalize data, maxVal is equal to minVal, division by zero.');
+      throw new Error('Can not normalize data, maxVal is equal to minVal, division by zero.');
     }
 
     for (let i = 0; i < data.length; ++i) {
