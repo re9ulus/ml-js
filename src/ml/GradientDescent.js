@@ -9,7 +9,7 @@ class SimpleGradientDescentOptimizer {
   predict_single(bias, w1, item) {
     return bias + w1 * item;
   }
-  
+
   predict(bias, w1, data) {
     let pred = []; // ToDo: Use map
     for (let item of data) {

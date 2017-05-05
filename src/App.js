@@ -22,14 +22,14 @@ class App extends Component {
     label = scaler.standardize(label);
     data = scaler.standardize(data);
 
-    console.log('label: ', label);
-    console.log('data: ', data);
+    // console.log('label: ', label);
+    // console.log('data: ', data);
 
-    const eta = 0.001;
+    const eta = 0.01;
     lr.fit(data, label, eta);
 
     let pred = lr.predict(data);
-    console.log(pred);
+    // console.log(pred);
 
     let error = meanSquaredError(label, pred);
     console.log('Error: ', error);
