@@ -1,4 +1,4 @@
-var M = import './MathUtils';
+import * as M from './MathUtils';
 
 class Scaler {
 
