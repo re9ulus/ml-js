@@ -32,8 +32,9 @@ class SimpleLinearModel {
   }
 }
 
+
 class SimpleLinearRegression extends SimpleLinearModel {
-  fit(data, target, eta=0.01, n_iter=1000) {
+  fit(data, target, eta=0.001, n_iter=100) {
     let optimizer = new SimpleGradientDescentOptimizer(
       (bias, w, item, target) => target - (bias + w * item),
       (bias, w, item, target) => (target - (bias + w * item)) * item
