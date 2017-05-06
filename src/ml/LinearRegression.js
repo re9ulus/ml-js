@@ -1,4 +1,4 @@
-import { SimpleGradientDescentOptimizer } from './GradientDescent';
+import { OnlineGradientDescentOptimizer } from './GradientDescent';
 import * as M from './Matrix';
 
 /*
@@ -32,7 +32,7 @@ class SimpleLinearModel {
 
 class SimpleLinearRegression extends SimpleLinearModel {
   fit(data, target, eta=0.001, n_iter=100) {
-    let optimizer = new SimpleGradientDescentOptimizer(
+    let optimizer = new OnlineGradientDescentOptimizer(
       (bias, w, item, target) => target - (bias + w * item),
       (bias, w, item, target) => (target - (bias + w * item)) * item
     );
@@ -74,7 +74,7 @@ class LinearRegression extends LinearModel {
 
     console.log('Test dot product: ', M.dot([1,2,3], [4,5,6]));
 
-    let optimizer = new SimpleGradientDescentOptimizer(
+    let optimizer = new OnlineGradientDescentOptimizer(
       (bias, weights, item, target) => M.sub(
         target,
         M.add(bias,
