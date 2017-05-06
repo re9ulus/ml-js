@@ -9,19 +9,6 @@ class OnlineGradientDescentOptimizer {
     this.weight_func = weight_func;
   }
 
-
-  // predictSingle(bias, w1, item) {
-  //   return bias + w1 * item;
-  // }
-  //
-  // predict(data, weights, bias) {
-  //   let pred = []; // ToDo: Use map
-  //   for (let item of data) {
-  //     pred.push(this.predictSingle(bias, weights, item));
-  //   }
-  //   return pred;
-  // }
-
   predict(data, weights, bias) {
     return M.add(bias, M.dot(data, weights));
   }
