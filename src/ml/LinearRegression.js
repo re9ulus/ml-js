@@ -1,5 +1,5 @@
 import { SimpleGradientDescentOptimizer } from './GradientDescent';
-import * as Matrix from './Matrix';
+import * as M from './Matrix';
 
 /*
   TODO:
@@ -20,26 +20,18 @@ class SimpleLinearModel {
     console.log('not implemented');
   }
 
-  predict_single(item) {
+  predictSingle(item) {
     console.log('not implemented');
   }
 
   predict(data) {
-    let pred = []; // ToDo: Use map
-    for (let item of data) {
-      pred.push(this.predict_single(item));
-    }
-    return pred;
+    return data.map((item) => this.predictSingle(item));
   }
 }
 
 
 class SimpleLinearRegression extends SimpleLinearModel {
   fit(data, target, eta=0.001, n_iter=100) {
-
-    console.log('Test dot product: ', Matrix.dot([1,2,3], [4,5,6]));
-
-
     let optimizer = new SimpleGradientDescentOptimizer(
       (bias, w, item, target) => target - (bias + w * item),
       (bias, w, item, target) => (target - (bias + w * item)) * item
@@ -47,8 +39,61 @@ class SimpleLinearRegression extends SimpleLinearModel {
     [ this.bias, this.w1 ] = optimizer.optimize(data, target, eta, n_iter);
   }
 
-  predict_single(item) {
+  predictSingle(item) {
     return this.bias + this.w1 * item;
+  }
+}
+
+
+class LinearModel {
+  constructor() {
+    this.bias = 1;
+    this.weights = [1];
+  }
+
+  fit(data, target) {
+    console.log('not implemented');
+  }
+
+  predictSingle(item) {
+    console.log('not implemented');
+  }
+
+  predict(data) {
+    let pred = []; // ToDo: Use map
+    for (let item of data) {
+      pred.push(this.predictSingle(item));
+    }
+    return pred;
+  }
+}
+
+
+class LinearRegression extends LinearModel {
+  fit(data, target, eta=0.001, n_iter=100) {
+
+    console.log('Test dot product: ', M.dot([1,2,3], [4,5,6]));
+
+    let optimizer = new SimpleGradientDescentOptimizer(
+      (bias, weights, item, target) => M.sub(
+        target,
+        M.add(bias,
+          M.dot(weights, item))),
+      (bias, weights, item, target) => M.dot(
+        M.sub(target,
+          M.add(bias,
+            M.dot(weights, item))),
+        item)
+    );
+    [ this.bias, this.weights ] = optimizer.optimize(data, target, eta, n_iter);
+  }
+
+  predict(data) {
+    return M.add(this.bias, M.dot(data, this.weights));
+  }
+
+  predictSingle(item) {
+    return this.bias + M.dot(item, this.weights);
   }
 }
 

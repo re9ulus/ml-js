@@ -1,5 +1,8 @@
 import { meanSquaredError } from './Metrics';
 
+// ToDo: Rename to Online
+// ToDo: Add minibatch sgd
+// ToDo: Add callback to call on each iteration (print score)
 class SimpleGradientDescentOptimizer {
   constructor(bias_func, weight_func) {
     this.bias_func = bias_func;

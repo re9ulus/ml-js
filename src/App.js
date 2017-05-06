@@ -29,8 +29,6 @@ class App extends Component {
     lr.fit(data, label, eta);
 
     let pred = lr.predict(data);
-    // console.log(pred);
-
     let error = meanSquaredError(label, pred);
     console.log('Error: ', error);
   }
