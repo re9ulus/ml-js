@@ -48,30 +48,30 @@ class OnlineGradientDescentOptimizer {
         bias = newBias;
         weights = newWeights.slice();
       }
-      console.log(iter, bias, weights[0], 'error: ', meanSquaredError(target, this.predict(data, weights, bias)));
+      console.log(iter, bias, weights.toString(), 'error: ', meanSquaredError(target, this.predict(data, weights, bias)));
     }
     return [ bias, weights ];
   }
 
-  optimizeBatch(data, target, eta, nIter, batchSize) {
-    const nRows = data.length;
-    const nCols = data[0].length;
-
-    let bias = 1;
-    let weights = new Array(nCols).fill(0);
-    let newBias = bias;
-    let newWeights = weights.slice();
-    for (let iter = 0; iter < nIter; ++iter) {
-      for (let i = 0; i < nRows; ++i) {
-        newBias = M.add(newBias, M.mul(eta, this.bias_func(bias, weights, data[i], target[i])));
-        newWeights = M.add(newWeights, M.mul(eta, this.weight_func(bias, weights, data[i], target[i])));
-        bias = newBias;
-        weights = newWeights.slice();
-      }
-      console.log(iter, bias, weights[0], 'error: ', meanSquaredError(target, this.predict(data, weights, bias)));
-    }
-    return [ bias, weights ];
-  }
+  // optimizeBatch(data, target, eta, nIter, batchSize) {
+  //   const nRows = data.length;
+  //   const nCols = data[0].length;
+  //
+  //   let bias = 1;
+  //   let weights = new Array(nCols).fill(0);
+  //   let newBias = bias;
+  //   let newWeights = weights.slice();
+  //   for (let iter = 0; iter < nIter; ++iter) {
+  //     for (let i = 0; i < nRows; ++i) {
+  //       newBias = M.add(newBias, M.mul(eta, this.bias_func(bias, weights, data[i], target[i])));
+  //       newWeights = M.add(newWeights, M.mul(eta, this.weight_func(bias, weights, data[i], target[i])));
+  //       bias = newBias;
+  //       weights = newWeights.slice();
+  //     }
+  //     console.log(iter, bias, weights[0], 'error: ', meanSquaredError(target, this.predict(data, weights, bias)));
+  //   }
+  //   return [ bias, weights ];
+  // }
 
 }
 

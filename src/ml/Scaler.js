@@ -1,4 +1,5 @@
-import * as M from './MathUtils';
+import * as Mth from './MathUtils';
+import * as Matrix from './Matrix';
 
 class Scaler {
 
@@ -7,26 +8,21 @@ class Scaler {
       return data;
     }
     const nRows = data.length;
-    const nCols = data[0].length;
-    const means = M.matrixMeanCols(data);
+    const means = Mth.matrixMeanCols(data);
     let stds = new Array(data[0].length).fill(0);
-    for (let row of data) {
-      for (let i = 0; i < nCols; ++i) {
-        stds[i] += Math.pow(row[i] - means[i], 2);
-      }
+    for (const row of data) {
+      stds = Matrix.add(stds, Matrix.pow(Matrix.sub(row, means), 2));
     }
     stds = stds.map((val) => Math.sqrt(val / nRows));
-    console.log('means: ', means, 'stds: ', stds);
-    for (let row of data) {
-      for (let i = 0; i < nCols; ++i) {
-        row[i] = (row[i] - means[i]) / stds[i];
-      }
-    }
+    data = data.map((row) => Matrix.div(Matrix.sub(row, means), stds));
     return data;
   }
 
   _standardizeArray(data) {
-    const mean = M.mean(data);
+    if (data.length === 0) {
+      return data;
+    }
+    const mean = Mth.mean(data);
     let std = 0;
     for (let item of data) {
       std += Math.pow(item - mean, 2);
