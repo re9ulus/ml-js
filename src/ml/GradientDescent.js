@@ -4,7 +4,7 @@ import * as M from './Matrix';
 // ToDo: Add minibatch sgd
 // ToDo: Add callback to call on each iteration (print score)
 // ToDo: Add randomization
-class OnlineGradientDescentOptimizer {
+class GradientDescentOptimizer {
   constructor(bias_func, weight_func) {
     this.bias_func = bias_func;
     this.weight_func = weight_func;
@@ -14,7 +14,7 @@ class OnlineGradientDescentOptimizer {
     return M.add(bias, M.dot(data, weights));
   }
 
-  optimizeOld(data, target, eta, nIter) {
+  optimizeOnlineOld(data, target, eta, nIter) {
     // Non vectorized version for 1d, used for testing
     let bias = 1;
     let weights = 0;
@@ -33,7 +33,7 @@ class OnlineGradientDescentOptimizer {
     return [ bias, weights ];
   }
 
-  optimize(data, target, eta, nIter) {
+  optimizeOnline(data, target, eta, nIter) {
     const nRows = data.length;
     const nCols = data[0].length;
 
@@ -75,4 +75,4 @@ class OnlineGradientDescentOptimizer {
 
 }
 
-export { OnlineGradientDescentOptimizer };
+export { GradientDescentOptimizer };

@@ -1,4 +1,4 @@
-import { OnlineGradientDescentOptimizer } from './GradientDescent';
+import { GradientDescentOptimizer } from './GradientDescent';
 import * as M from './Matrix';
 
 /*
@@ -31,11 +31,11 @@ class SimpleLinearModel {
 
 class SimpleLinearRegression extends SimpleLinearModel {
   fit(data, target, eta=0.001, n_iter=100) {
-    let optimizer = new OnlineGradientDescentOptimizer(
+    let optimizer = new GradientDescentOptimizer(
       (bias, w, item, target) => target - (bias + w * item),
       (bias, w, item, target) => (target - (bias + w * item)) * item
     );
-    [ this.bias, this.w1 ] = optimizer.optimizeOld(data, target, eta, n_iter);
+    [ this.bias, this.w1 ] = optimizer.optimizeOnlineOld(data, target, eta, n_iter);
   }
 
   predictSingle(item) {
@@ -66,7 +66,7 @@ class LinearModel {
 
 class LinearRegression extends LinearModel {
   fit(data, target, eta=0.001, n_iter=100) {
-    let optimizer = new OnlineGradientDescentOptimizer(
+    let optimizer = new GradientDescentOptimizer(
       (bias, weights, item, target) => M.sub(
           target,
           M.add(bias,
@@ -77,7 +77,7 @@ class LinearRegression extends LinearModel {
             M.dot(weights, item))),
         item)
     );
-    [ this.bias, this.weights ] = optimizer.optimize(data, target, eta, n_iter);
+    [ this.bias, this.weights ] = optimizer.optimizeOnline(data, target, eta, n_iter);
   }
 
   predict(data) {
