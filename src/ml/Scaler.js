@@ -2,7 +2,7 @@ import * as M from './MathUtils';
 
 class Scaler {
 
-  standardizeMatrix(data) {
+  _standardizeMatrix(data) {
     if (data.length === 0 || data[0].length === 0) {
       return data;
     }
@@ -25,19 +25,14 @@ class Scaler {
     return data;
   }
 
-  standardizeArray(data) {
+  _standardizeArray(data) {
     const mean = M.mean(data);
     let std = 0;
     for (let item of data) {
       std += Math.pow(item - mean, 2);
     }
-    std /= data.length;
-    std = Math.sqrt(std);
-    for (let i = 0; i < data.length; ++i) {
-      data[i] = (data[i] - mean) / std;
-    }
-
-    return data;
+    std = Math.sqrt(std / data.length);
+    return data.map((val) => (val - mean) / std);
   }
 
   standardize(data) {
@@ -46,9 +41,9 @@ class Scaler {
     }
 
     if (Array.isArray(data[0])) {
-      return this.standardizeMatrix(data);
+      return this._standardizeMatrix(data);
     } else {
-      return this.standardizeArray(data);
+      return this._standardizeArray(data);
     }
 
   }

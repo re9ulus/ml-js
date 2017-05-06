@@ -59,11 +59,7 @@ class LinearModel {
   }
 
   predict(data) {
-    let pred = []; // ToDo: Use map
-    for (let item of data) {
-      pred.push(this.predictSingle(item));
-    }
-    return pred;
+    return data.map((row) => this.predictSingle(row));
   }
 }
 

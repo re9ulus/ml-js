@@ -8,7 +8,7 @@ import { Scaler } from './ml/Scaler';
 
 class App extends Component {
 
-  testFuncArr() {
+  testFuncMatrix() {
     let lr = new LinearRegression();
     let data = [];
     let label = [];
@@ -44,9 +44,6 @@ class App extends Component {
     label = scaler.standardize(label);
     data = scaler.standardize(data);
 
-    console.log('label: ', label);
-    console.log('data: ', data);
-
     const eta = 0.01;
     lr.fit(data, label, eta);
 
@@ -58,7 +55,7 @@ class App extends Component {
   render() {
 
     this.testFunc();
-    this.testFuncArr();
+    this.testFuncMatrix();
 
     return (
       <div className="App">
