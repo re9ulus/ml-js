@@ -36,7 +36,7 @@ class SimpleLinearRegression extends SimpleLinearModel {
       (bias, w, item, target) => target - (bias + w * item),
       (bias, w, item, target) => (target - (bias + w * item)) * item
     );
-    [ this.bias, this.w1 ] = optimizer.optimize(data, target, eta, n_iter);
+    [ this.bias, this.w1 ] = optimizer.optimizeOld(data, target, eta, n_iter);
   }
 
   predictSingle(item) {
@@ -70,15 +70,12 @@ class LinearModel {
 
 
 class LinearRegression extends LinearModel {
-  fit(data, target, eta=0.001, n_iter=100) {
-
-    console.log('Test dot product: ', M.dot([1,2,3], [4,5,6]));
-
+  fit(data, target, eta=0.01, n_iter=1000) {
     let optimizer = new OnlineGradientDescentOptimizer(
       (bias, weights, item, target) => M.sub(
-        target,
-        M.add(bias,
-          M.dot(weights, item))),
+          target,
+          M.add(bias,
+            M.dot(weights, item))),
       (bias, weights, item, target) => M.dot(
         M.sub(target,
           M.add(bias,
@@ -97,4 +94,4 @@ class LinearRegression extends LinearModel {
   }
 }
 
-export { SimpleLinearRegression };
+export { SimpleLinearRegression, LinearRegression };

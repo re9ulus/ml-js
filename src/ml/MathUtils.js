@@ -3,6 +3,19 @@ function mean(data) {
     return 0;
   }
   return data.reduce((a, b) => a + b, 0) / data.length;
-};
+}
 
-export { mean };
+function matrixMeanCols(data) {
+  const nRows = data.length;
+  const nCols = data[0].length;
+  let means = new Array(nCols).fill(0);
+  for (let row of data) {
+    for (let i = 0; i < nCols; ++i) {
+      means[i] += row[i];
+    }
+  }
+  means = means.map((val) => val /= nRows);
+  return means;
+}
+
+export { mean, matrixMeanCols };

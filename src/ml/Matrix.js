@@ -13,4 +13,8 @@ function sub(A, B) {
   return numeric.sub(A, B);
 }
 
-export { dot, add, numeric };
+function mul(A, val) {
+  return numeric.mul(A, val);
+}
+
+export { dot, add, sub, mul };

@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 
-import { SimpleLinearRegression } from './ml/LinearRegression';
-import { test_data } from  './ml/TestData';
+import { SimpleLinearRegression, LinearRegression } from './ml/LinearRegression';
+import { testData, testDataArr } from  './ml/TestData';
 import { meanSquaredError } from './ml/Metrics';
 import { Scaler } from './ml/Scaler';
 
 class App extends Component {
 
-  test_func() {
-    let lr = new SimpleLinearRegression();
+  testFuncArr() {
+    let lr = new LinearRegression();
     let data = [];
     let label = [];
 
-    for (let item of test_data) {
+    for (let item of testDataArr) {
       label.push(item[0]);
       data.push(item[1]);
     }
@@ -22,8 +22,33 @@ class App extends Component {
     label = scaler.standardize(label);
     data = scaler.standardize(data);
 
-    // console.log('label: ', label);
-    // console.log('data: ', data);
+    console.log('label: ', label);
+    console.log('data: ', data);
+
+    const eta = 0.01;
+    lr.fit(data, label, eta);
+
+    let pred = lr.predict(data);
+    let error = meanSquaredError(label, pred);
+    console.log('Error: ', error);
+  }
+
+  testFunc() {
+    let lr = new SimpleLinearRegression();
+    let data = [];
+    let label = [];
+
+    for (let item of testData) {
+      label.push(item[0]);
+      data.push(item[1]);
+    }
+
+    let scaler = new Scaler();
+    label = scaler.standardize(label);
+    data = scaler.standardize(data);
+
+    console.log('label: ', label);
+    console.log('data: ', data);
 
     const eta = 0.01;
     lr.fit(data, label, eta);
@@ -35,7 +60,8 @@ class App extends Component {
 
   render() {
 
-    this.test_func();
+    this.testFuncArr();
+    this.testFunc();
 
     return (
       <div className="App">
