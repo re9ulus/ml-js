@@ -27,6 +27,7 @@ class OnlineGradientDescentOptimizer {
   }
 
   optimizeOld(data, target, eta, n_iter) {
+    // Non vectorized version for 1d, used for testing
     let bias = 1;
     let weights = 0;
     let newBias = bias;
@@ -54,9 +55,6 @@ class OnlineGradientDescentOptimizer {
     let newWeights = weights.slice();
     for (let iter = 0; iter < n_iter; ++iter) {
       for (let i = 0; i < data.length; ++i) {
-        // newBias += eta * this.bias_func(bias, weights, data[i], target[i]);
-        // newWeights += eta * this.weight_func(bias, weights, data[i], target[i]);
-
         newBias = M.add(newBias, M.mul(eta, this.bias_func(bias, weights, data[i], target[i])));
         newWeights = M.add(newWeights, M.mul(eta, this.weight_func(bias, weights, data[i], target[i])));
         bias = newBias;
@@ -66,7 +64,6 @@ class OnlineGradientDescentOptimizer {
     }
     return [bias, weights];
   }
-
 }
 
 export { OnlineGradientDescentOptimizer };

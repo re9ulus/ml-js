@@ -22,9 +22,6 @@ class App extends Component {
     label = scaler.standardize(label);
     data = scaler.standardize(data);
 
-    console.log('label: ', label);
-    console.log('data: ', data);
-
     const eta = 0.01;
     lr.fit(data, label, eta);
 
@@ -60,8 +57,8 @@ class App extends Component {
 
   render() {
 
-    this.testFuncArr();
     this.testFunc();
+    this.testFuncArr();
 
     return (
       <div className="App">

@@ -3,11 +3,10 @@ import * as M from './Matrix';
 
 /*
   TODO:
-  1. Write matrix version
-  2. Write minibutch version
-  3. Add data loader
-  4. Add data visualization
-  5. Add tests
+  1. Write minibutch version
+  2. Add data loader
+  3. Add data visualization
+  4. Add tests
 */
 
 class SimpleLinearModel {
@@ -70,7 +69,7 @@ class LinearModel {
 
 
 class LinearRegression extends LinearModel {
-  fit(data, target, eta=0.01, n_iter=1000) {
+  fit(data, target, eta=0.001, n_iter=100) {
     let optimizer = new OnlineGradientDescentOptimizer(
       (bias, weights, item, target) => M.sub(
           target,
