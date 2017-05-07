@@ -67,16 +67,7 @@ class LinearModel {
 class LinearRegression extends LinearModel {
   fit(data, target, eta=0.001, n_iter=100) {
     let optimizer = new GradientDescentOptimizer(
-      (bias, weights, item, target) => {
-
-        // console.log('b ', bias);
-        // console.log('w ', weights);
-        // console.log('i ', item);
-        // console.log('t ', target);
-        //
-        // console.log('res ', M.add(bias, M.dot(weights, item)));
-
-        return M.sub(
+      (bias, weights, item, target) => { return M.sub(
           target,
           M.add(bias,
             M.dot(weights, item)))},
