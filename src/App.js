@@ -54,7 +54,7 @@ class App extends Component {
 
   render() {
 
-    this.testFunc();
+    // this.testFunc();
     this.testFuncMatrix();
 
     return (
