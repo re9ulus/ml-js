@@ -78,6 +78,7 @@ class LinearRegression extends LinearModel {
         item)
     );
     [ this.bias, this.weights ] = optimizer.optimizeOnline(data, target, eta, n_iter);
+        // [ this.bias, this.weights ] = optimizer.optimize(data, target, eta, n_iter);
   }
 
   predict(data) {

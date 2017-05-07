@@ -18,4 +18,8 @@ function matrixMeanCols(data) {
   return means;
 }
 
-export { mean, matrixMeanCols };
+function getRandomInt(minVal, maxVal) {
+    return Math.floor(Math.random() * (maxVal - minVal + 1)) + minVal;
+}
+
+export { mean, matrixMeanCols, getRandomInt };
