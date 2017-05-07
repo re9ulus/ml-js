@@ -91,21 +91,7 @@ class GradientDescentOptimizer {
   optimize(data, target, eta, nIter) {
     // ToDo: Investigate why value is worse then for online algo
     // Local minumum ? Is it possible ?
-    const nRows = data.length;
-    const nCols = data[0].length;
-
-    let bias = 1;
-    let weights = new Array(nCols).fill(0);
-    let newBias = bias;
-    let newWeights = weights.slice();
-    for (let iter = 0; iter < nIter; ++iter) {
-      newBias = M.add(newBias, M.mul(eta, this.bias_func(bias, weights, data, target)))[0]; // bias must be a scalar
-      newWeights = M.add(newWeights, M.mul(eta, this.weight_func(bias, weights, data, target)));
-      bias = newBias;
-      weights = newWeights.slice();
-      console.log(iter, bias, weights.toString(), 'error: ', meanSquaredError(target, this.predict(data, weights, bias)));
-    }
-    return [ bias, weights ];
+    return this.optimizeBatch(data, target, eta, nIter, data.length);
   }
 
 }
