@@ -1,5 +1,4 @@
 import { meanSquaredError } from './Metrics';
-import * as Mth from './MathUtils';
 import * as M from './Matrix';
 
 // ToDo: Add minibatch sgd
@@ -74,6 +73,7 @@ class GradientDescentOptimizer {
     let weights = new Array(nCols).fill(0);
     let newBias = bias;
     let newWeights = weights.slice();
+    let errors = [];
     for (let iter = 0; iter < nIter; ++iter) {
       for (let i = 0; i < nRows; i += batchSize) {
         const batchData = this._createBatch(data, i, batchSize);
@@ -83,9 +83,11 @@ class GradientDescentOptimizer {
         bias = newBias;
         weights = newWeights.slice();
       }
-      console.log(iter, bias, weights[0], 'error: ', meanSquaredError(target, this.predict(data, weights, bias)));
+      let err = meanSquaredError(target, this.predict(data, weights, bias));
+      console.log(iter, bias, weights[0], 'error: ', err);
+      errors.push(err);
     }
-    return [ bias, weights ];
+    return [ bias, weights, errors ];
   }
 
   optimize(data, target, eta, nIter) {

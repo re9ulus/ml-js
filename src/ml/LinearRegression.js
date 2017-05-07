@@ -47,6 +47,7 @@ class LinearModel {
   constructor() {
     this.bias = 1;
     this.weights = [1];
+
   }
 
   fit(data, target) {
@@ -76,8 +77,11 @@ class LinearRegression extends LinearModel {
             M.dot(weights, item))),
         item)
     );
-    [ this.bias, this.weights ] = optimizer.optimizeOnline(data, target, eta, n_iter);
+
+    let errors = [];
+    [ this.bias, this.weights, errors ] = optimizer.optimizeOnline(data, target, eta, n_iter);
     // [ this.bias, this.weights ] = optimizer.optimize(data, target, eta, n_iter);
+    return errors;
   }
 
   predict(data) {
