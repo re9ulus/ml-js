@@ -34,7 +34,6 @@ class GradientDescentOptimizer {
   }
 
   optimizeOnline(data, target, eta, nIter) {
-    // ToDo: Add randomization
     const nRows = data.length;
     const nCols = data[0].length;
     const useRand = true;
@@ -47,11 +46,9 @@ class GradientDescentOptimizer {
     for (let iter = 0; iter < nIter; ++iter) {
       for (let i = 0; i < nRows; ++i) {
 
-        if (useRand) {
-          currInd = Mth.getRandomInt(0, nRows-1);
-        } else {
-          currInd = i;
-        }
+        currInd = useRand
+          ? Mth.getRandomInt(0, nRows-1)
+          : i;
 
         newBias = M.add(newBias, M.mul(eta, this.bias_func(bias, weights, data[currInd], target[currInd])));
         newWeights = M.add(newWeights, M.mul(eta, this.weight_func(bias, weights, data[currInd], target[currInd])));
