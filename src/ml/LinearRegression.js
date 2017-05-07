@@ -3,10 +3,9 @@ import * as M from './Matrix';
 
 /*
   TODO:
-  1. Write minibutch version
-  2. Add data loader
-  3. Add data visualization
-  4. Add tests
+  1. Add data loader
+  2. Add data visualization
+  3. Add tests
 */
 
 class SimpleLinearModel {
