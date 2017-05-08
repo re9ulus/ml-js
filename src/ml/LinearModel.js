@@ -1,15 +1,17 @@
 class SimpleLinearModel {
   constructor() {
     this.bias = 1;
-    this.w1 = 0;
+    this.w = 0;
   }
 
   fit(data, target) {
     console.log('not implemented');
+    throw new Error('SimpleLinearModel.fit not implemented.');
   }
 
   predictSingle(item) {
     console.log('not implemented');
+    throw new Error('SimpleLinearModel.predictSingle not implemented.');
   }
 
   predict(data) {

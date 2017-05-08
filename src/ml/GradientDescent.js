@@ -1,14 +1,12 @@
 import * as M from './Matrix';
 
 
-// ToDo: Add callback to call on each iteration (print score)
 class GradientDescentOptimizer {
-  constructor(biasFunc, weightFunc, predictFunc, errorFunc) {
+  constructor(biasFunc, weightFunc, callback) {
     this.biasFunc = biasFunc;
     this.weightFunc = weightFunc;
 
-    this.predictFunc = predictFunc;
-    this.errorFunc = errorFunc;
+    this.callback = callback;
   }
 
   optimizeOnlineOld(data, target, eta, nIter) {
@@ -24,9 +22,8 @@ class GradientDescentOptimizer {
         bias = newBias;
         weights = newWeights;
       }
-      if (this.errorFunc && this.predictFunc) {
-        console.log(iter, bias, weights, 'error: ', this.errorFunc(target, this.predictFunc(data, bias, weights)));
-        // console.log(iter, 'error: ', this.errorFunc(target, this.predictFunc(data, bias, weights)));
+      if (this.callback) {
+        this.callback(data, target, bias, weights);
       }
     }
     return [ bias, weights ];
@@ -59,11 +56,10 @@ class GradientDescentOptimizer {
         bias = newBias;
         weights = newWeights.slice();
       }
-      if (this.predictFunc && this.errorFunc) {
-        let err = this.errorFunc(target, this.predictFunc(data, bias, weights));
-        console.log(iter, bias, weights[0], 'error: ', err);
-        errors.push(err);
+      if (this.callback) {
+        this.callback(data, target, bias, weights);
       }
+
     }
     return [ bias, weights, errors ];
   }

@@ -6,19 +6,23 @@ import * as M from './Matrix';
 
 class SimpleLogisticRegression extends SimpleLinearModel {
   fit(data, target, eta=0.001, n_iter=100) {
-
-    const pr = (item, bias, w) => sigmoid(bias + w * item);
     let optimizer = new GradientDescentOptimizer(
-      (item, target, bias, w) => target - pr(item, bias, w),
-      (item, target, bias, w) => (target - pr(item, bias, w)) * item,
-      (data, bias, w) => data.map((val) => pr(val, bias, w)),
-      (target, probs) => logLoss(target, probs)
+      (item, target, bias, w) => target - this._predictProbaSingle(item, bias, w),
+      (item, target, bias, w) => (target - this._predictProbaSingle(item, bias, w)) * item,
+      (data, target, bias, weights) => {
+        console.log('loss: ', logLoss(target,
+          data.map((val) => this._predictProbaSingle(val, bias, weights))))
+      }
     );
-    [ this.bias, this.w1 ] = optimizer.optimizeOnlineOld(data, target, eta, n_iter);
+    [ this.bias, this.w ] = optimizer.optimizeOnlineOld(data, target, eta, n_iter);
+  }
+
+  _predictProbaSingle(item, bias, w) {
+    return sigmoid(bias + w * item);
   }
 
   predictProbaSingle(item) {
-    return sigmoid(this.bias + this.w1 * item);
+    return this._predictProbaSingle(item, this.bias, this.w);
   }
 
   predictProba(data) {
@@ -37,21 +41,18 @@ class SimpleLogisticRegression extends SimpleLinearModel {
 
 class LogisticRegression extends LinearModel {
   fit(data, target, eta=0.001, n_iter=100) {
-
-    const pr = (data, bias, weights) => M.sigmoid(
-        M.add(bias,
-        M.dot(data, weights)));
-
     let optimizer = new GradientDescentOptimizer(
       (data, target, bias, weights) => M.sub(
         target,
-        pr(data, bias, weights)),
+        this._predictProba(data, bias, weights)),
       (data, target, bias, weights) => M.dot(
         M.sub(target,
-              pr(data, bias, weights)),
+              this._predictProba(data, bias, weights)),
         data),
-      (data, bias, weights) => pr(data, bias, weights),
-      (real, pred) => logLoss(real, pred)
+      (data, target, bias, weights) => {
+        console.log('loss: ', logLoss(target,
+          this._predictProba(data, bias, weights)))
+      }
     );
 
     let errors = [];
@@ -59,8 +60,12 @@ class LogisticRegression extends LinearModel {
     return errors;
   }
 
+  _predictProba(data, bias, weights) {
+    return  M.sigmoid(M.add(bias, M.dot(data, weights)));
+  }
+
   predictProba(data) {
-    return M.sigmoid(M.add(this.bias, M.dot(data, this.weights)));
+    return this._predictProba(data, this.bias, this.weights);
   }
 
   predict(data) {

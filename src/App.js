@@ -13,10 +13,10 @@ class App extends Component {
   }
 
   test() {
-    // Tests.testSimpleLinearRegression();
-    // Tests.testLinearRegression();
-    Tests.testSimpleLogisticRegression();
-    Tests.testLogisticRegression();
+    Tests.testSimpleLinearRegression();
+    Tests.testLinearRegression();
+    // Tests.testSimpleLogisticRegression();
+    // Tests.testLogisticRegression();
   }
 
   render() {

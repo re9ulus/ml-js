@@ -12,18 +12,23 @@ import * as M from './Matrix';
 
 class SimpleLinearRegression extends SimpleLinearModel {
   fit(data, target, eta=0.001, n_iter=100) {
-    const pr = (item, bias, w) => bias + w * item;
     let optimizer = new GradientDescentOptimizer(
-      (item, target, bias, w) => target - pr(item, bias, w),
-      (item, target, bias, w) => (target - pr(item, bias, w)) * item,
-      (data, bias, w) => data.map((val) => pr(val, bias, w)),
-      (real, pred) => meanSquaredError(real, pred)
+      (item, target, bias, w) => target - this._predictSingle(item, bias, w),
+      (item, target, bias, w) => (target - this._predictSingle(item, bias, w)) * item,
+      (data, target, bias, weights) => {
+        console.log('loss: ', meanSquaredError(target,
+          data.map((val) => this._predictSingle(val, bias, weights))))
+      }
     );
-    [ this.bias, this.w1 ] = optimizer.optimizeOnlineOld(data, target, eta, n_iter);
+    [ this.bias, this.w ] = optimizer.optimizeOnlineOld(data, target, eta, n_iter);
+  }
+
+  _predictSingle(item, bias, w) {
+    return bias + w * item;
   }
 
   predictSingle(item) {
-    return this.bias + this.w1 * item;
+    return this._predictSingle(item, this.bias, this.w);
   }
 }
 
@@ -31,18 +36,19 @@ class SimpleLinearRegression extends SimpleLinearModel {
 class LinearRegression extends LinearModel {
   fit(data, target, eta=0.001, n_iter=100) {
 
-    const pr = (item, target, bias, weights) => M.sub(
+    const f = (data, target, bias, weights) => M.sub(
         target,
-        M.add(bias,
-          M.dot(weights, item)));
+        this._predict(data, bias, weights));
 
     let optimizer = new GradientDescentOptimizer(
-      (item, target, bias, weights) => pr(item, target, bias, weights),
+      (item, target, bias, weights) => f(item, target, bias, weights),
       (item, target, bias, weights) => M.dot(
-        pr(item, target, bias, weights),
+        f(item, target, bias, weights),
         item),
-      (data, bias, weights) => M.add(bias, M.dot(data, weights)),
-      (real, pred) => meanSquaredError(real, pred)
+      (data, target, bias, weights) => {
+        console.log('loss: ', meanSquaredError(target,
+          this._predict(data, bias, weights)))
+      }
     );
 
     let errors = [];
@@ -50,8 +56,12 @@ class LinearRegression extends LinearModel {
     return errors;
   }
 
+  _predict(data, bias, weights) {
+    return M.add(bias, M.dot(data, weights));
+  }
+
   predict(data) {
-    return M.add(this.bias, M.dot(data, this.weights));
+    return this._predict(data, this.bias, this.weights);
   }
 
   predictSingle(item) {
