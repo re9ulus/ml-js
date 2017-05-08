@@ -46,7 +46,6 @@ class GradientDescentOptimizer {
     let weights = new Array(nCols).fill(0);
     let newBias = bias;
     let newWeights = weights.slice();
-    let errors = [];
     for (let iter = 0; iter < nIter; ++iter) {
       for (let i = 0; i < nRows; i += batchSize) {
         const batchData = this._createBatch(data, i, batchSize);
@@ -59,9 +58,8 @@ class GradientDescentOptimizer {
       if (this.callback) {
         this.callback(data, target, bias, weights);
       }
-
     }
-    return [ bias, weights, errors ];
+    return [ bias, weights ];
   }
 
   optimize(data, target, eta, nIter) {

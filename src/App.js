@@ -1,22 +1,19 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 
-import { Vis } from './vis/Vis';
 import * as Tests from './ml/test';
 
 class App extends Component {
 
   testPlot() {
-    let errors = Tests.testLinearRegression();
-    let vis = new Vis('#chart');
-    vis.scatter(errors, 'LinReg loss');
+    Tests.testPlotLinearRegression();
   }
 
   test() {
-    Tests.testSimpleLinearRegression();
-    Tests.testLinearRegression();
-    // Tests.testSimpleLogisticRegression();
-    // Tests.testLogisticRegression();
+    // Tests.testSimpleLinearRegression();
+    // Tests.testLinearRegression();
+    Tests.testSimpleLogisticRegression();
+    Tests.testLogisticRegression();
   }
 
   render() {
@@ -32,11 +29,15 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
-        <div id="chart"></div>
-        <button onClick={() => this.testPlot()}>
-          Cool sutff
-        </button>
 
+        <div id="test-items">
+          <textarea id="target" rows="4" cols="50"></textarea>
+          <textarea id="data" rows="4" cols="50"></textarea>
+          <div id="chart"></div>
+          <button onClick={() => this.testPlot()}>
+            Cool sutff
+          </button>
+        </div>
       </div>
     );
   }

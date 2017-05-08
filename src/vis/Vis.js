@@ -7,10 +7,8 @@ class Vis {
   }
 
   initPlot() {
-    console.log('start init plot', this.$el);
-
     this.chart = c3.generate({
-        bindto: '#chart', //this.$el,
+        bindto: this.$el,
         data: {
           columns: [
             []

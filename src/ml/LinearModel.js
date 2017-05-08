@@ -21,9 +21,10 @@ class SimpleLinearModel {
 
 
 class LinearModel {
-  constructor() {
+  constructor(callback) {
     this.bias = 1;
     this.weights = [1];
+    this.callback = callback; // (data, target, bias, weights) => {}
   }
 
   fit(data, target) {

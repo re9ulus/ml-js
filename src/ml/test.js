@@ -3,7 +3,7 @@ import { SimpleLogisticRegression, LogisticRegression } from './LogisticRegressi
 import { testData, testDataArr, testLogisticData } from  './TestData';
 import { meanSquaredError, logLoss, accuracy } from './Metrics';
 import { Scaler } from './Scaler';
-
+import { Vis } from './../vis/Vis';
 
 // ToDo: Implement generalized test
 function modelTest(model, inputData) {
@@ -57,6 +57,43 @@ function testLinearRegression() {
   return errors;
 }
 
+function testPlotLinearRegression() {
+  let vis = new Vis('#chart');
+  let losses = [];
+
+  let lr = new LinearRegression((data, target, bias, weights) => {
+    const loss = meanSquaredError(target, lr._predict(data, bias, weights));
+    console.log('loss', loss);
+    losses.push(loss);
+    vis.line(losses, 'loss 1');
+  });
+
+  let losses2 = [];
+
+  let lr2 = new LinearRegression((data, target, bias, weights) => {
+    const loss = meanSquaredError(target, lr._predict(data, bias, weights));
+    console.log('loss', loss);
+    losses2.push(loss);
+    vis.line(losses2, 'loss 2');
+  });
+
+  let data = [];
+  let label = [];
+
+  for (let item of testDataArr) {
+    label.push(item[0]);
+    data.push(item[1]);
+  }
+
+  let scaler = new Scaler();
+  label = scaler.standardize(label);
+  data = scaler.standardize(data);
+
+  const eta = 0.01;
+  lr.fit(data, label, eta);
+  lr2.fit(data, label, 0.001);
+}
+
 
 function testSimpleLogisticRegression() {
   let logReg = new SimpleLogisticRegression();
@@ -107,4 +144,4 @@ function testLogisticRegression() {
 
 
 export { testSimpleLinearRegression, testLinearRegression,
-  testSimpleLogisticRegression, testLogisticRegression };
+  testSimpleLogisticRegression, testLogisticRegression, testPlotLinearRegression };
