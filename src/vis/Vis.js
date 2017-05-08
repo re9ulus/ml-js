@@ -3,34 +3,42 @@ import c3 from 'c3';
 class Vis {
   constructor($el) {
     this.$el = $el;
-    console.log(c3);
+    this.initPlot();
   }
 
-  scatter(data) {
-    console.log('Not implemented');
-  }
+  initPlot() {
+    console.log('start init plot', this.$el);
 
-  line(data) {
-    console.log('Plot line');
-
-    let columns = [
-        // ['data1', 30, 200, 100, 400, 150, 250],
-        // ['data2', 50, 20, 10, 40, 15, 25]
-    ];
-    if (data) {
-      columns.push(['loss'].concat(data));
-    }
-
-
-    /*const chart =*/ c3.generate({
-        bindto: '#chart',
+    this.chart = c3.generate({
+        bindto: '#chart', //this.$el,
         data: {
-            columns: columns
+          columns: [
+            []
+          ]
         }
     });
-
+    console.log('end init plot');
   }
 
+  scatter(data, title) {
+    let columns = [];
+    if (title && data) {
+      columns = [title].concat(data);
+    } else {
+      throw new Error('Can not plot scatter. Title or Data is empty.')
+    }
+    this.chart.load({columns:[columns], type: 'scatter'});
+  }
+
+  line(data, title) {
+    let columns = [];
+    if (title && data) {
+      columns = [title].concat(data);
+    } else {
+      throw new Error('Can not plot line. Title or Data is empty.')
+    }
+    this.chart.load({columns:[columns]});
+  }
 }
 
 export { Vis };

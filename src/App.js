@@ -8,8 +8,8 @@ class App extends Component {
 
   testPlot() {
     let errors = Tests.testLinearRegression();
-    let vis = new Vis();
-    vis.line(errors);
+    let vis = new Vis('#chart');
+    vis.scatter(errors, 'LinReg loss');
   }
 
   test() {
