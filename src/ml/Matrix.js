@@ -25,4 +25,8 @@ function pow(A, B) {
   return numeric.pow(A, B);
 }
 
-export { dot, add, sub, mul, div, pow };
+function sigmoid(A) {
+  return div(1, add(1, pow(A, Math.E)));
+}
+
+export { dot, add, sub, mul, div, pow, sigmoid };

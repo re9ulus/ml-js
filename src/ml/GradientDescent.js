@@ -59,7 +59,7 @@ class GradientDescentOptimizer {
         weights = newWeights.slice();
       }
       if (this.predictFunc && this.errorFunc) {
-        let err = this.predictFunc(target, this.errorFunc(data, bias, weights));
+        let err = this.errorFunc(target, this.predictFunc(data, bias, weights));
         console.log(iter, bias, weights[0], 'error: ', err);
         errors.push(err);
       }

@@ -13,9 +13,9 @@ class App extends Component {
   }
 
   test() {
-    testSimpleLogisticRegression();
-    // testLinearRegression();
+    // testSimpleLogisticRegression();
     // testSimpleLinearRegression();
+    testLinearRegression();
   }
 
   render() {
