@@ -22,4 +22,24 @@ function getRandomInt(minVal, maxVal) { // [minVal, maxVal)
     return Math.floor(Math.random() * (maxVal - minVal)) + minVal;
 }
 
-export { mean, matrixMeanCols, getRandomInt };
+function sigmoid(val) {
+  // ToDo: Test
+  // M.div(1.0, M.add(1.0, M.pow(val, Math.E)));
+  return 1.0 / (1.0 + Math.exp(-val));
+}
+
+function clip(arr, minVal, maxVal) {
+  /*Values outside interval [minVal, maxVal] are clipped to interval edges*/
+  // ToDo: Test
+  return arr.map((minVal) => {
+    if (val < minVal) {
+      return minVal;
+    }
+    if (val > maxVal) {
+      return maxVal;
+    }
+    return val;
+  });
+}
+
+export { mean, matrixMeanCols, getRandomInt, sigmoid };

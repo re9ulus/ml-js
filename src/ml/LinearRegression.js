@@ -1,4 +1,5 @@
 import { GradientDescentOptimizer } from './GradientDescent';
+import { LinearModel, SimpleLinearModel } from './LinearModel';
 import * as M from './Matrix';
 
 /*
@@ -7,26 +8,6 @@ import * as M from './Matrix';
   2. Add data visualization
   3. Add tests
 */
-
-class SimpleLinearModel {
-  constructor() {
-    this.bias = 1;
-    this.w1 = 0;
-  }
-
-  fit(data, target) {
-    console.log('not implemented');
-  }
-
-  predictSingle(item) {
-    console.log('not implemented');
-  }
-
-  predict(data) {
-    return data.map((item) => this.predictSingle(item));
-  }
-}
-
 
 class SimpleLinearRegression extends SimpleLinearModel {
   fit(data, target, eta=0.001, n_iter=100) {
@@ -41,28 +22,6 @@ class SimpleLinearRegression extends SimpleLinearModel {
     return this.bias + this.w1 * item;
   }
 }
-
-
-class LinearModel {
-  constructor() {
-    this.bias = 1;
-    this.weights = [1];
-
-  }
-
-  fit(data, target) {
-    console.log('not implemented');
-  }
-
-  predictSingle(item) {
-    console.log('not implemented');
-  }
-
-  predict(data) {
-    return data.map((row) => this.predictSingle(row));
-  }
-}
-
 
 class LinearRegression extends LinearModel {
   fit(data, target, eta=0.001, n_iter=100) {
