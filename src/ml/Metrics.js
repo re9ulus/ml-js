@@ -2,7 +2,7 @@ import { clip } from './MathUtils';
 
 function meanSquaredError(real, pred) {
   if (real.length !== pred.length) {
-    throw new Error(`Real and predicted values have different sizes (${real.length} != ${pred.length})`);
+    throw new Error(`Real and predicted arrays have different sizes (${real.length} != ${pred.length})`);
   }
   if (real.length === 0) {
     return 0;
@@ -15,13 +15,13 @@ function meanSquaredError(real, pred) {
 }
 
 function logLoss(target, probs, eps=1e-15) {
-  probs = clip(probs, eps, 1 - eps); // to prevent log(0) and log(1)
   if (target.length !== probs.length) {
-    throw new Error(`Target and probabilities values have different sizes (${target.lenght} != ${probs.length})`);
+    throw new Error(`Target and probabilities arrays have different sizes (${target.lenght} != ${probs.length})`);
   }
   if (target.length === 0) {
     return 0;
   }
+  probs = clip(probs, eps, 1 - eps); // to prevent log(0) and log(1)
   let res = 0;
   for (let i = 0; i < target.length; ++i) {
     res += -target[i] * Math.log(probs[i]) - (1 - target[i]) * Math.log(1 - probs[i]);
@@ -32,6 +32,24 @@ function logLoss(target, probs, eps=1e-15) {
 
 function multiLogLoss(target, probs) {
   console.log('Not implemented');
+  throw new Error('multiLogLoss not implemented');
 }
 
-export { meanSquaredError, logLoss, multiLogLoss };
+function accuracy(target, pred) {
+  if (target.length !== pred.length) {
+    throw new Error(`Target and predicted arrays have different sizes (${target.lenght} != ${pred.length})`);
+  }
+  if (target.length === 0) {
+    return 1;
+  }
+  let res = 0;
+  for (let i = 0; i < target.length; ++i) {
+    if (target[i] === pred[i]) {
+      res += 1;
+    }
+  }
+  res /= target.length;
+  return res;
+}
+
+export { meanSquaredError, logLoss, multiLogLoss, accuracy };

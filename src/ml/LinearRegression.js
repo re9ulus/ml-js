@@ -55,7 +55,7 @@ class LinearRegression extends LinearModel {
   }
 
   predictSingle(item) {
-    return this.bias + M.dot(item, this.weights);
+    return M.add(this.bias, M.dot(item, this.weights));
   }
 }
 

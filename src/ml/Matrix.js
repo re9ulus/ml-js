@@ -22,11 +22,19 @@ function div(A, B) {
 }
 
 function pow(A, B) {
-  return numeric.pow(A, B);
+  return numeric.pow(A, B)
+}
+
+function exp(A) {
+  return numeric.exp(A);
+}
+
+function neg(A) {
+  return numeric.neg(A);
 }
 
 function sigmoid(A) {
-  return div(1, add(1, pow(A, Math.E)));
+  return div(1, add(1, exp(neg(A))));
 }
 
-export { dot, add, sub, mul, div, pow, sigmoid };
+export { dot, add, sub, mul, div, pow, exp, neg, sigmoid };

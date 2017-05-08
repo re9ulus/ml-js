@@ -2,20 +2,21 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 
 import { Vis } from './vis/Vis';
-import { testLinearRegression, testSimpleLinearRegression, testSimpleLogisticRegression } from './ml/test';
+import * as Tests from './ml/test';
 
 class App extends Component {
 
   testPlot() {
-    let errors = testLinearRegression();
+    let errors = Tests.testLinearRegression();
     let vis = new Vis();
     vis.line(errors);
   }
 
   test() {
-    // testSimpleLogisticRegression();
-    // testSimpleLinearRegression();
-    testLinearRegression();
+    // Tests.testSimpleLinearRegression();
+    // Tests.testLinearRegression();
+    Tests.testSimpleLogisticRegression();
+    Tests.testLogisticRegression();
   }
 
   render() {
