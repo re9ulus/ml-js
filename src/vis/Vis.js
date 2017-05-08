@@ -21,7 +21,8 @@ class Vis {
       columns.push(['loss'].concat(data));
     }
 
-    const chart = c3.generate({
+
+    /*const chart =*/ c3.generate({
         bindto: '#chart',
         data: {
             columns: columns

@@ -31,7 +31,7 @@ function sigmoid(val) {
 function clip(arr, minVal, maxVal) {
   /*Values outside interval [minVal, maxVal] are clipped to interval edges*/
   // ToDo: Test
-  return arr.map((minVal) => {
+  return arr.map((val) => {
     if (val < minVal) {
       return minVal;
     }
@@ -42,4 +42,4 @@ function clip(arr, minVal, maxVal) {
   });
 }
 
-export { mean, matrixMeanCols, getRandomInt, sigmoid };
+export { mean, matrixMeanCols, getRandomInt, sigmoid, clip };
