@@ -4,6 +4,12 @@ import { testData, testDataArr, testLogisticData } from  './TestData';
 import { meanSquaredError, logLoss, accuracy } from './Metrics';
 import { Scaler } from './Scaler';
 
+
+// ToDo: Implement generalized test
+function modelTest(model, inputData) {
+
+}
+
 function testSimpleLinearRegression() {
   let lr = new SimpleLinearRegression();
   let data = [];
