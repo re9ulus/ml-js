@@ -9,16 +9,16 @@ function sub(A, B) {
   return numeric.sub(A, B);
 }
 
-function dot(A, B) {
-  return numeric.dot(A, B);
-}
-
 function mul(A, B) {
   return numeric.mul(A, B);
 }
 
 function div(A, B) {
   return numeric.div(A, B);
+}
+
+function dot(A, B) {
+  return numeric.dot(A, B);
 }
 
 function pow(A, B) {
