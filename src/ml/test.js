@@ -5,7 +5,6 @@ import { meanSquaredError, logLoss, accuracy } from './Metrics';
 import { Scaler } from './Scaler';
 import { Vis } from './../vis/Vis';
 
-// ToDo: Implement generalized test
 function modelTest(model, inputData, callback, eta=0.01, standardize=false) {
   let data = [];
   let label = [];
