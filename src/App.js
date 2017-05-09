@@ -3,10 +3,13 @@ import logo from './logo.svg';
 
 import * as Tests from './ml/test';
 
+import { Vis } from './vis/Vis';
+
 class App extends Component {
 
   testPlot() {
     Tests.testPlotLinearRegression();
+    // let v = new Vis('chart');
   }
 
   test() {
@@ -33,7 +36,8 @@ class App extends Component {
         <div id="test-items">
           <textarea id="target" rows="4" cols="50"></textarea>
           <textarea id="data" rows="4" cols="50"></textarea>
-          <div id="chart"></div>
+          {/* <div id="chart"></div> */}
+          <canvas id="chart" width="300" height="100"></canvas>
           <button onClick={() => this.testPlot()}>
             Cool sutff
           </button>

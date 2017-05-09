@@ -40,8 +40,6 @@ class LinearRegression extends LinearModel {
         target,
         this._predict(data, bias, weights));
 
-    console.log('callback', this.callback);
-
     let optimizer = new GradientDescentOptimizer(
       (item, target, bias, weights) => f(item, target, bias, weights),
       (item, target, bias, weights) => M.dot(

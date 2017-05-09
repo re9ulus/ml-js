@@ -58,23 +58,25 @@ function testLinearRegression() {
 }
 
 function testPlotLinearRegression() {
-  let vis = new Vis('#chart');
-  let losses = [];
+  // ToDo: Plot in separate thread
+  let vis = new Vis('chart');
 
+  const lineHandler1 = vis.line([], 'lr1', '#faa');
+  let ind = 0;
   let lr = new LinearRegression((data, target, bias, weights) => {
     const loss = meanSquaredError(target, lr._predict(data, bias, weights));
+    vis.addPoint(ind, loss, lineHandler1);
+    ind += 1;
     console.log('loss', loss);
-    losses.push(loss);
-    vis.line(losses, 'loss 1');
   });
 
-  let losses2 = [];
-
+  const lineHandler2 = vis.line([], 'lr2', '#afa');
+  let ind2 = 0;
   let lr2 = new LinearRegression((data, target, bias, weights) => {
     const loss = meanSquaredError(target, lr._predict(data, bias, weights));
+    vis.addPoint(ind2, loss, lineHandler2);
+    ind2 += 1;
     console.log('loss', loss);
-    losses2.push(loss);
-    vis.line(losses2, 'loss 2');
   });
 
   let data = [];
@@ -91,7 +93,7 @@ function testPlotLinearRegression() {
 
   const eta = 0.01;
   lr.fit(data, label, eta);
-  lr2.fit(data, label, 0.001);
+  lr2.fit(data, label, 0.1);
 }
 
 
