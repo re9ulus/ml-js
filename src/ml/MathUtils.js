@@ -7,7 +7,13 @@ function mean(data) {
 
 function matrixMeanCols(data) {
   const nRows = data.length;
+  if (nRows === 0) {
+    throw new Error('matrixMeanCols, Can not get means for empty matrix');
+  }
   const nCols = data[0].length;
+  if (nCols === 0) {
+    throw new Error('matrixMeanCols, Can not get means for empty matrix');
+  }
   let means = new Array(nCols).fill(0);
   for (let row of data) {
     for (let i = 0; i < nCols; ++i) {
@@ -23,14 +29,12 @@ function getRandomInt(minVal, maxVal) { // [minVal, maxVal)
 }
 
 function sigmoid(val) {
-  // ToDo: Test
   // M.div(1.0, M.add(1.0, M.pow(val, Math.E)));
   return 1.0 / (1.0 + Math.exp(-val));
 }
 
 function clip(arr, minVal, maxVal) {
   /*Values outside interval [minVal, maxVal] are clipped to interval edges*/
-  // ToDo: Test
   return arr.map((val) => {
     if (val < minVal) {
       return minVal;
