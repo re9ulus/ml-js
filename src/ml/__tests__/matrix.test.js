@@ -78,7 +78,7 @@ test('Sub matrices', () => {
 });
 
 
-test('Dib constants', () => {
+test('Div constants', () => {
   expect(M.div(6, 3)).toEqual(2);
 });
 
@@ -101,4 +101,32 @@ test('Div vectors', () => {
 
 test('Div matrices', () => {
   expect(M.div([[4, 6], [8, 10]], [[2, 2], [2, 2]])).toEqual([[2, 3], [4, 5]]);
+});
+
+
+test('Dot constants', () => {
+  expect(M.dot(6, 3)).toEqual(18);
+});
+
+test('Dot and vector', () => {
+  expect(M.dot(6, [3])).toEqual([18]);
+  expect(M.dot([6], 3)).toEqual([18]);
+});
+
+test('Dot vecotrs', () => {
+  expect(M.dot([6], [3])).toEqual(18);
+  expect(M.dot([1, 2], [3, 4])).toEqual(11);
+  expect(M.dot([1, 2], [[3], [4]])).toEqual([11]);
+  // fix behaviour for wrong vector dimensions (col dot row)
+  expect(M.dot([[1], [2]], [3, 4])).toEqual([3 ,6]);
+});
+
+test('Dot matrix and vector', () => {
+  expect(M.dot([[1, 2], [3, 4]], [[1], [2]])).toEqual([[5], [11]]);
+  expect(M.dot([1, 2], [[1, 2], [3, 4]])).toEqual([7, 10]);
+});
+
+test('Dot matrices', () => {
+  expect(M.dot([[1, 2], [3, 4]], [[1, 0], [0, 1]])).toEqual([[1, 2], [3, 4]]);
+  expect(M.dot([[1, 2], [3, 4]], [[4, 3], [2, 1]])).toEqual([[8, 5], [20, 13]]);
 });
