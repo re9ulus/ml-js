@@ -76,3 +76,29 @@ test('Sub vectors', () => {
 test('Sub matrices', () => {
   expect(M.mul([[1, 2], [3, 4]], [[1, 0], [0, 1]])).toEqual([[1, 0], [0, 4]]);
 });
+
+
+test('Dib constants', () => {
+  expect(M.div(6, 3)).toEqual(2);
+});
+
+test('Div constant and vector', () => {
+    expect(M.div([6], 3)).toEqual([2]);
+    expect(M.div(9, [3])).toEqual([3]);
+    expect(M.div(10, [10, 5, 2])).toEqual([1, 2, 5]);
+    expect(M.div([[10], [15], [20]], 5)).toEqual([[2], [3], [4]]);
+});
+
+test('Div constant and matrix', () => {
+    expect(M.div([[1, 2], [3, 4]], 1)).toEqual([[1, 2], [3, 4]]);
+    expect(M.div(8, [[1, 2], [4, 8]])).toEqual([[8, 4], [2, 1]]);
+});
+
+test('Div vectors', () => {
+  expect(M.div([10, 8], [5, 4])).toEqual([2, 2]);
+  expect(M.div([[10], [8]], [[5], [4]])).toEqual([[2], [2]]);
+});
+
+test('Div matrices', () => {
+  expect(M.div([[4, 6], [8, 10]], [[2, 2], [2, 2]])).toEqual([[2, 3], [4, 5]]);
+});
