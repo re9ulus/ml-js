@@ -130,3 +130,29 @@ test('Dot matrices', () => {
   expect(M.dot([[1, 2], [3, 4]], [[1, 0], [0, 1]])).toEqual([[1, 2], [3, 4]]);
   expect(M.dot([[1, 2], [3, 4]], [[4, 3], [2, 1]])).toEqual([[8, 5], [20, 13]]);
 });
+
+
+test('Pow constants', () => {
+  // Pow constants is not defined, use Math.pow
+});
+
+test('Pow constant and vector', () => {
+    expect(M.pow([2], 3)).toEqual([8]);
+    expect(M.pow(2, [3])).toEqual([8]);
+    expect(M.pow(2, [2, 3, 4])).toEqual([4, 8, 16]);
+    expect(M.pow([[2], [3], [4]], 2)).toEqual([[4], [9], [16]]);
+});
+
+test('Pow constant and matrix', () => {
+    expect(M.pow([[1, 2], [3, 4]], 2)).toEqual([[1, 4], [9, 16]]);
+    expect(M.pow(2, [[1, 2], [3, 4]])).toEqual([[2, 4], [8, 16]]);
+});
+
+test('Pow vectors', () => {
+  expect(M.pow([2, 3], [2, 3])).toEqual([4, 27]);
+  expect(M.pow([[2], [3]], [[2], [3]])).toEqual([[4], [27]]);
+});
+
+test('Pow matrices', () => {
+  expect(M.pow([[1, 2], [3, 4]], [[2, 2], [2, 2]])).toEqual([[1, 4], [9, 16]]);
+});
