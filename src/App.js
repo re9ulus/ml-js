@@ -3,8 +3,6 @@ import logo from './logo.svg';
 
 import * as Tests from './ml/test';
 
-import { Vis } from './vis/Vis';
-
 class App extends Component {
 
   testPlot() {

@@ -47,8 +47,6 @@ class LinearRegression extends LinearModel {
         item),
       (data, target, bias, weights) => {
         this.callback(data, target, bias, weights)
-        // console.log('loss: ', meanSquaredError(target,
-        //   this._predict(data, bias, weights)))
       }
     );
 

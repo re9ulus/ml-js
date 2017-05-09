@@ -53,56 +53,27 @@ class VisChartJS {
   }
 
   initPlot() {
-    // console.log('start initPlot');
     this.ctx = document.getElementById(this.$el);
-    // this.config = {
-    //   type: 'line',
-    //   data: {
-    //     // labels: [],
-    //     datasets: [//{
-    //       // label: 'loss',
-    //       // fill: false,
-    //       // borderColor: '#faa',
-    //       // data: [1,2,4,5]
-    //     //}
-    //     ]
-    //   }
-    // };
-
     this.config = {
       type: 'line',
       data: {
-          datasets: [
-          //   {
-          //     label: 'Scatter Dataset',
-          //     data: [{
-          //         x: -10, y: 0
-          //     }, {
-          //         x: 0, y: 10
-          //     }, {
-          //         x: 10, y: 5
-          //     }]
-          // }
-        ]
+        datasets: []
       },
       options: {
-          scales: {
-              xAxes: [{
-                  type: 'linear',
-                  position: 'bottom'
-              }]
-          }
+        scales: {
+          xAxes: [{
+            type: 'linear',
+            position: 'bottom'
+          }]
+        }
       }
     };
 
     this.chart = new Chart(this.ctx, this.config);
-
     console.log('end init plot');
   }
 
   addPoint(x, y, handler=0) {
-    // this.config.data.labels.push(label);
-    // this.config.data.datasets[handler].data.push(val);
     this.config.data.datasets[handler].data.push({x: x, y: y});
     this.chart.update();
   }
