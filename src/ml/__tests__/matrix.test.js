@@ -133,7 +133,7 @@ test('Dot matrices', () => {
 
 
 test('Pow constants', () => {
-  // Pow constants is not defined, use Math.pow
+  // Pow doesn't work for constants, use Math.pow
 });
 
 test('Pow constant and vector', () => {
@@ -155,4 +155,36 @@ test('Pow vectors', () => {
 
 test('Pow matrices', () => {
   expect(M.pow([[1, 2], [3, 4]], [[2, 2], [2, 2]])).toEqual([[1, 4], [9, 16]]);
+});
+
+
+test('Exp constants', () => {
+  // Exp is not defined for constants, use Math.exp
+});
+
+test('Exp vector', () => {
+    expect(M.exp([2])).toEqual([Math.exp(2)]);
+    expect(M.exp([1, 2])).toEqual([Math.exp(1), Math.exp(2)]);
+    expect(M.exp([[1], [2]])).toEqual([[Math.exp(1)], [Math.exp(2)]]);
+});
+
+test('Exp matrix', () => {
+  expect(M.exp([[1, 2], [3, 4]])).toEqual([
+    [Math.exp(1), Math.exp(2)], [Math.exp(3), Math.exp(4)]]);
+});
+
+
+test('Neg constants', () => {
+  // Exp is not defined for constants, use Math.exp
+  expect(M.neg(2)).toEqual(-3);
+});
+
+test('Neg vector', () => {
+    expect(M.neg([2])).toEqual([-2]);
+    expect(M.neg([1, 2])).toEqual([-1, -2]);
+    expect(M.neg([[1], [2]])).toEqual([[-1], [-2]]);
+});
+
+test('Neg matrix', () => {
+  expect(M.neg([[1, 2], [3, 4]])).toEqual([[-1, -2], [-3, -4]]);
 });
