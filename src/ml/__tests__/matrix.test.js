@@ -175,8 +175,7 @@ test('Exp matrix', () => {
 
 
 test('Neg constants', () => {
-  // Exp is not defined for constants, use Math.exp
-  expect(M.neg(2)).toEqual(-3);
+  expect(M.neg(2)).toEqual(-2);
 });
 
 test('Neg vector', () => {
@@ -187,4 +186,23 @@ test('Neg vector', () => {
 
 test('Neg matrix', () => {
   expect(M.neg([[1, 2], [3, 4]])).toEqual([[-1, -2], [-3, -4]]);
+});
+
+function _sigmoid(val) {
+  return 1 / (1 + Math.exp(-val));
+}
+
+test('Sigmoid constants', () => {
+  // Sigmoid doesn't work for constants, use Sigmoid from MathUtils
+});
+
+test('Sigmoid vector', () => {
+    expect(M.sigmoid([2])).toEqual([_sigmoid(2)]);
+    expect(M.sigmoid([-1, 1])).toEqual([_sigmoid(-1), _sigmoid(1)]);
+    expect(M.sigmoid([[1], [2]])).toEqual([[_sigmoid(1)], [_sigmoid(2)]]);
+});
+
+test('Sigmoid matrix', () => {
+  expect(M.sigmoid([[-1, 1], [3, 4]])).toEqual(
+    [[_sigmoid(-1), _sigmoid(1)], [_sigmoid(3), _sigmoid(4)]]);
 });
