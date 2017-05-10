@@ -24,7 +24,11 @@ function logLoss(target, probs, eps=1e-15) {
   probs = clip(probs, eps, 1 - eps); // to prevent log(0) and log(1)
   let res = 0;
   for (let i = 0; i < target.length; ++i) {
-    res += -target[i] * Math.log(probs[i]) - (1 - target[i]) * Math.log(1 - probs[i]);
+    if (target[i]) {
+      res += -Math.log(probs[i]);
+    } else {
+      res += -Math.log(1 - probs[i]);
+    }
   }
   res /= target.length;
   return res;

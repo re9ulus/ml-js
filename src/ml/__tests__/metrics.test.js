@@ -19,9 +19,31 @@ test('MSE diff', () => {
 });
 
 
+test('LogLoss different length', () => {
+  expect(() => {
+    Mtr.logLoss([0], [0, 0])
+  }).toThrow();
+});
+
+test('LogLoss empty', () => {
+  expect(Mtr.logLoss([], [])).toEqual(0);
+});
+
+test('LogLoss equal', () => {
+  expect(Mtr.logLoss([0, 1, 0], [0, 1, 0])).toBeCloseTo(0);
+});
+
+test('LogLoss diff', () => {
+  expect(Mtr.logLoss([0, 0, 0], [1, 1, 1])).toBeCloseTo(34.5395);
+  expect(Mtr.logLoss([0, 1, 0], [0, 1, 1])).toBeCloseTo(11.5131);
+  expect(Mtr.logLoss([0, 1, 0, 1, 0, 1, 0],
+                     [0, 1, 0.3, 0.8, 0.2, 0.7, 0.3])).toBeCloseTo(0.2166);
+});
+
+
 test('Accuracy different length', () => {
   expect(() => {
-    Mtr.accuracy([1], [2, 3])}
+    Mtr.accuracy([0], [0, 0])}
   ).toThrow();
 });
 
