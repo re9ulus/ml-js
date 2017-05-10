@@ -13,6 +13,7 @@ class Scaler {
     for (const row of data) {
       stds = Matrix.add(stds, Matrix.pow(Matrix.sub(row, means), 2));
     }
+    stds = stds.map((val) => val === 0 ? 1 : val);
     stds = stds.map((val) => Math.sqrt(val / nRows));
     data = data.map((row) => Matrix.div(Matrix.sub(row, means), stds));
     return data;
@@ -28,6 +29,9 @@ class Scaler {
       std += Math.pow(item - mean, 2);
     }
     std = Math.sqrt(std / data.length);
+    if (std === 0) {
+      std = 1;
+    }
     return data.map((val) => (val - mean) / std);
   }
 
@@ -35,16 +39,15 @@ class Scaler {
     if (data.length === 0) {
       return data;
     }
-
     if (Array.isArray(data[0])) {
       return this._standardizeMatrix(data);
     } else {
       return this._standardizeArray(data);
     }
-
   }
 
   // ToDo: Add matrix version of normalize
+  // ToDo: Add tests
   normalize(data) {
     if (data.length === 0) {
       return data;

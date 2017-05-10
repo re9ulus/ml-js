@@ -45,9 +45,10 @@ class LinearRegression extends LinearModel {
       (item, target, bias, weights) => M.dot(
         f(item, target, bias, weights),
         item),
-      (data, target, bias, weights) => {
-        this.callback(data, target, bias, weights)
-      }
+      this.callback
+      // (data, target, bias, weights) => {
+      //   this.callback(data, target, bias, weights)
+      // }
     );
 
     let errors = [];
