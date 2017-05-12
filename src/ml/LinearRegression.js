@@ -15,10 +15,10 @@ class SimpleLinearRegression extends SimpleLinearModel {
     let optimizer = new GradientDescentOptimizer(
       (item, target, bias, w) => target - this._predictSingle(item, bias, w),
       (item, target, bias, w) => (target - this._predictSingle(item, bias, w)) * item,
-      (data, target, bias, weights) => {
-        console.log('loss: ', meanSquaredError(target,
-          data.map((val) => this._predictSingle(val, bias, weights))))
-      }
+      // (data, target, bias, weights) => {
+      //   console.log('loss: ', meanSquaredError(target,
+      //     data.map((val) => this._predictSingle(val, bias, weights))))
+      // }
     );
     [ this.bias, this.w ] = optimizer.optimizeOnlineOld(data, target, eta, n_iter);
   }
